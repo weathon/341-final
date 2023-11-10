@@ -2,18 +2,20 @@ import { IonContent, IonHeader, IonImg, IonItem, IonLabel, IonList, IonPage, Ion
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
 import { faker } from '@faker-js/faker';
+import { useState } from 'react';
 
 
 const Tab2: React.FC = () => {
-  const chatData = [];
+  const chatData_ = [];
   for (var i = 0; i < 20; i++) {
-    chatData.push({
+    chatData_.push({
       id: i,
       avatar: faker.image.urlLoremFlickr({ category: 'abstract' }),
       name: faker.internet.displayName(),
       preview: faker.lorem.sentence()
     })
   }
+  const [chatData, setChatData] = useState(chatData_)
   return (
     <IonPage>
       <IonHeader>
@@ -27,7 +29,12 @@ const Tab2: React.FC = () => {
             <IonTitle size="large">Chat</IonTitle>
           </IonToolbar>
         </IonHeader>
-        <IonSearchbar></IonSearchbar>
+        <IonSearchbar onIonChange={(e)=>{
+          setChatData([...chatData.filter((x)=>{
+            console.log(e)
+            return x.name.includes(e.detail.value)
+          })])
+        }}></IonSearchbar>
         <IonList>
           {
             chatData.map(x => (
