@@ -1,8 +1,9 @@
-import { IonContent, IonHeader, IonImg, IonItem, IonLabel, IonList, IonPage, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonList, IonModal, IonPage, IonSearchbar, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab2.css';
 import { faker } from '@faker-js/faker';
 import { useState } from 'react';
+import { backspace, chevronBack } from 'ionicons/icons';
 
 
 const Tab2: React.FC = () => {
@@ -16,8 +17,20 @@ const Tab2: React.FC = () => {
     })
   }
   const [chatData, setChatData] = useState(chatData_)
+  const [open, setOpen] = useState(false);
+  const [currentName, setCurrentName] = useState("")
   return (
     <IonPage>
+       <IonModal isOpen={open}>
+          <IonHeader>
+          <IonToolbar>
+            <IonTitle>{currentName}</IonTitle>
+            <IonButtons>
+              <IonButton onClick={()=>{setOpen(false)}}><IonIcon aria-hidden="true" icon={chevronBack}/></IonButton>
+            </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+       </IonModal>
       <IonHeader>
         <IonToolbar>
           <IonTitle>Chat</IonTitle>
@@ -38,7 +51,7 @@ const Tab2: React.FC = () => {
         <IonList>
           {
             chatData.map(x => (
-              <IonItem key={x.id}>
+              <IonItem onClick={()=>{setOpen(true);setCurrentName(x.name)}} key={x.id}>
                 <img slot="start" className='rounded-full h-14 aspect-square' src={x.avatar}></img>
                 <div>
                   <IonLabel><b>{x.name}</b></IonLabel>

@@ -17,7 +17,7 @@ const Tab3: React.FC = () => {
           {/* now i do not need text-center wtf oh i have child in div */}
           <div>
             <IonIcon icon={images} className="text-4xl"></IonIcon>
-            <p>Add photos here</p>
+            <p>Add a photo here</p>
           </div>
         </div>
         <IonList>
