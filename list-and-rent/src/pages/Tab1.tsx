@@ -16,7 +16,7 @@ const Tab1: React.FC = () => {
       </IonHeader>
       <IonContent>
         <div style={{ margin: "10px" }}>
-        <IonSearchbar placeholder="Default"></IonSearchbar>
+          <IonSearchbar placeholder="Default"></IonSearchbar>
         </div>
       </IonContent>
     </IonPage >
