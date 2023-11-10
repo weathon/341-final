@@ -34,7 +34,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 
-setupIonicReact();
+setupIonicReact({
+  rippleEffect: true,
+  mode: 'ios',
+});
 
 const App: React.FC = () => (
   <IonApp>
