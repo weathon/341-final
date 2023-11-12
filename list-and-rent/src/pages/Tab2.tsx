@@ -18,11 +18,47 @@ const Tab2: React.FC = () => {
   }
 
   const [chat, setChat] = useState([
-    { username: "username", content: [faker.lorem.sentence()] },
-    { username: "user", content: [faker.lorem.sentence(), faker.lorem.sentence()] },
-    { username: "username", content: [faker.lorem.sentence(), faker.lorem.sentence(), faker.lorem.sentence()] },
-    { username: "user", content: [faker.lorem.sentence(), faker.lorem.sentence()] },
-  ])
+    {
+        "username": "Alice",
+        "content": ["Hey, how's it going?"]
+    },
+    {
+        "username": "user",
+        "content": ["Hi Alice! I'm doing well, thanks. How about you?"]
+    },
+    {
+        "username": "Alice",
+        "content": ["I'm good too, thanks for asking!", "Actually, I'm in the process of renting some equipment for our upcoming project."]
+    },
+    {
+        "username": "user",
+        "content": ["Oh, what kind of equipment are you renting?"]
+    },
+    {
+        "username": "Alice",
+        "content": ["We're renting an HPLC-ICP-MS and an ICP-MS."]
+    },
+    {
+        "username": "user",
+        "content": ["Wow, that sounds pretty specialized. What are you planning to do with them?"]
+    },
+    {
+        "username": "Alice",
+        "content": ["We're planning to analyze some environmental samples for trace metal content. It's part of a research project I'm working on."]
+    },
+    {
+        "username": "user",
+        "content": ["That sounds fascinating! I hope you get some interesting results."]
+    },
+    {
+        "username": "Alice",
+        "content": ["Thank you! We're excited to see what we'll discover. How about you? Anything exciting happening on your end?"]
+    },
+    {
+        "username": "user",
+        "content": ["I'm planning a weekend getaway with my friends. Can't wait!"]
+    }
+])
   const [chatData, setChatData] = useState(chatData_)
   const [open, setOpen] = useState(false);
   const [currentName, setCurrentName] = useState("")
@@ -43,7 +79,7 @@ const Tab2: React.FC = () => {
               if (x.username == "user") {
                 return (
                   x.content.map(i => (
-                    <div className='rounded-lg bg-sky-400 float-right p-2 m-2 ml-4 mr-4 w-9/12'>
+                    <div className='rounded-lg bg-sky-300 float-right p-2 m-2 ml-4 mr-4 w-9/12'>
                       {i}
                     </div>
                   ))
@@ -51,12 +87,13 @@ const Tab2: React.FC = () => {
               }
               else
                 return (
-                  <>
+                  <div className='float-left'>
+                    <img className="rounded-full aspect-square w-9 float-left m-2" src={faker.image.urlLoremFlickr({ category: 'abstract' })}></img>
                     {x.content.map(i => (
-                      <div className='rounded-lg bg-gray-300 float-left p-2 m-2 ml-4 mr-4 w-9/12'>
+                      <div className='rounded-lg bg-gray-300 p-2 m-2 ml-12 mr-4 w-9/12'>
                         {i}
                       </div>
-                    ))}</>
+                    ))}</div>
                 )
             })
           }
