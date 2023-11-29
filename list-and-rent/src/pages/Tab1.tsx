@@ -85,11 +85,11 @@ function VoiceSearch(props: v) {
 }
 const Tab1: React.FC = () => {
 
-  const trending = [
+  const trending_ = [
     {
       "id": 1,
       "image": "/sample (1).png",
-      "title": "Snow Board",
+      "title": "Snowboard",
       "description": "Brand new snow board, I am going out of town and cannot take it so you guys can rent it.",
       "from": "Steven J."
     },
@@ -123,13 +123,19 @@ const Tab1: React.FC = () => {
     }
   ];
   const [isDetileOpen, setDetileOpen] = useState(false);
-  const [filter, setFilter] = useState([]);
+  const [filter, setFilter] = useState({item_name: null });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
+  const [trending, setTrending] = useState(trending_);
   useEffect(() => {
-    setFilter([...trending.filter((x) => {
+    if(!filter.item_name)
+    {
+      setTrending([...trending_])
+      return;
+    }
+    setTrending([...trending_.filter((x) => {
       //@ts-ignore
-      x.includes(filter.item_name)
+      return x.title.toLowerCase().includes(filter.item_name.toLowerCase())
     })])
   }, [filter])
   return (
@@ -152,8 +158,11 @@ const Tab1: React.FC = () => {
         <div>
           <IonRow>
             <IonCol size="auto" className='grid text-center place-content-center m-2'><IonIcon icon={funnel} className="text-xl"></IonIcon></IonCol>
-            <IonCol className="m-0 p-0"><IonSearchbar className="pl-0 ml-0 mr-0 pr-0" placeholder="Default" onIonChange={()=>{
-              
+            <IonCol className="m-0 p-0"><IonSearchbar value={filter.item_name} className="pl-0 ml-0 mr-0 pr-0" placeholder="Default" onIonChange={(e)=>{
+                console.log(e.detail.value)
+                filter.item_name = e.detail.value;
+                setFilter({...filter})
+                console.log(filter)
             }}></IonSearchbar></IonCol>
             <IonCol size="auto" className='grid text-center place-content-center m-2'><IonIcon icon={mic} className="text-xl" onClick={() => { setVoiceOpen(true) }}></IonIcon></IonCol>
 
