@@ -114,7 +114,7 @@ const Tab2: React.FC = () => {
                 headers: { Authorization: `Bearer ${localStorage.getItem("APIKey")}`, "Content-Type": "application/json" },
                 method: "POST", body: JSON.stringify(
                   {
-                    "model": "gpt-3.5-turbo",
+                    "model": "gpt-4",
                     "messages": chat
                   }
                 )
