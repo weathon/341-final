@@ -1,4 +1,4 @@
-import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonPopover, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 import { funnel, mic, micCircle, micOffCircle, person, search } from 'ionicons/icons';
@@ -123,13 +123,12 @@ const Tab1: React.FC = () => {
     }
   ];
   const [isDetileOpen, setDetileOpen] = useState(false);
-  const [filter, setFilter] = useState({item_name: null });
+  const [filter, setFilter] = useState({ item_name: null });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
   useEffect(() => {
-    if(!filter.item_name)
-    {
+    if (!filter.item_name) {
       setTrending([...trending_])
       return;
     }
@@ -152,17 +151,19 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
+ 
         <IonModal isOpen={isDetileOpen}>
           <Detail setDetileOpen={setDetileOpen} itemId={itemId}></Detail>
         </IonModal>
         <div>
+
           <IonRow>
-            <IonCol size="auto" className='grid text-center place-content-center m-2'><IonIcon icon={funnel} className="text-xl"></IonIcon></IonCol>
-            <IonCol className="m-0 p-0"><IonSearchbar value={filter.item_name} className="pl-0 ml-0 mr-0 pr-0" placeholder="Default" onIonChange={(e)=>{
-                console.log(e.detail.value)
-                filter.item_name = e.detail.value;
-                setFilter({...filter})
-                console.log(filter)
+            <IonCol size="auto" className='grid text-center place-content-center m-2'><IonIcon id="filter" icon={funnel} className="text-xl"></IonIcon></IonCol>
+            <IonCol className="m-0 p-0"><IonSearchbar value={filter.item_name} className="pl-0 ml-0 mr-0 pr-0" placeholder="Default" onIonChange={(e) => {
+              console.log(e.detail.value)
+              filter.item_name = e.detail.value;
+              setFilter({ ...filter })
+              console.log(filter)
             }}></IonSearchbar></IonCol>
             <IonCol size="auto" className='grid text-center place-content-center m-2'><IonIcon icon={mic} className="text-xl" onClick={() => { setVoiceOpen(true) }}></IonIcon></IonCol>
 
@@ -183,6 +184,26 @@ const Tab1: React.FC = () => {
             ))
           }
         </div>
+        <IonPopover trigger="filter" triggerAction="click">
+          <IonContent class="ion-padding">
+            <IonList>
+              <IonItem>
+                <IonLabel>Lowest Price: </IonLabel>
+                <IonInput></IonInput>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Highest Price: </IonLabel>
+                <IonInput></IonInput>
+              </IonItem>
+
+              <IonItem>
+                Date
+                <IonInput type="date"></IonInput>
+              </IonItem>
+            </IonList>
+          </IonContent>
+        </IonPopover>
       </IonContent>
     </IonPage >
   );
