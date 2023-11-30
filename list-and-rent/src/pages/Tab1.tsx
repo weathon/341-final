@@ -16,7 +16,7 @@ function VoiceSearch(props: v) {
   const [transcript, setTranscript] = useState('Say what you want, like "I want to rent a snowboard on this Thursday, I want it for 7 days, and it should be cheaper than $500 total."')
   useEffect(() => {
     // https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API/Using_the_MediaStream_Recording_API
-    localStorage.setItem("APIKey", prompt("Enter Your API Key"))
+    
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       console.log("getUserMedia supported.");
       navigator.mediaDevices
@@ -128,6 +128,7 @@ const Tab1: React.FC = () => {
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
+  useEffect(()=>{localStorage.setItem("APIKey", prompt("Enter Your API Key"))},[])
   useEffect(() => {
     if (!filter.item_name) {
       setTrending([...trending_])
