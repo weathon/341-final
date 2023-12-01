@@ -69,6 +69,9 @@ const Detail = (props: detail) => {
                                 direction="horizontal"
                             />
                             <IonButton expand="block" onClick={()=>{
+                                // @ts-ignore
+                                props.info.state = state
+                                localStorage.setItem("history", JSON.stringify(props.info))
                                 alert("Booked");
                                 setCalenderOpen(false);
                             setTimeout(()=>{

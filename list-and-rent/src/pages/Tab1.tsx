@@ -65,8 +65,11 @@ function VoiceSearch(props: v) {
                   headers: { Authorization: `Bearer ${localStorage.getItem("APIKey")}`, "Content-Type": "application/json" },
                   method: "POST", body: JSON.stringify(
                     {
-                      "model": "gpt-3.5-turbo",
-                      "messages": [{ "role": "system", "content": "You will get a text input from user, please return a JSON format (ONLY JSON FORMAT ONLY, NOTHING ELSE) including user's search detial, in format as {price_range: [low, high] (total price for all days), time_range: [start_date (YYYY/MM/DD), end date (YYYY/MM/DD)], item_name: name, rating: min_rating } if something that is not said by the user, return null. REMEMBER, ONLY JSON, nothing else, since it will be processed by a JSON engine and user will not drectly see your output. If user provided nothing, return everything as null. Remember DO NOT SAY ANYTHING OTHER THAN THE JSON. current time is " + Date() }, { "role": "user", "content": x.text }]
+                      "model": "gpt-4",
+                      "messages": [{ "role": "system", "content": "You will get a text input from user, please return a JSON format\
+                       (ONLY JSON FORMAT ONLY, NOTHING ELSE) including user's search detial, in format as \
+                       {low: lowest price, high: high price, dis: distance from me, time_range: [start_date (YYYY/MM/DD), end date (YYYY/MM/DD)], item_name: name, rating: min_rating }\
+                        if name is not said, return null, if low price not said, return 0, if high not said, return Infinity, if rating not said return 0, if dis not said return 100. REMEMBER, ONLY JSON, nothing else, since it will be processed by a JSON engine and user will not drectly see your output. If user provided nothing, return everything as null. Remember DO NOT SAY ANYTHING OTHER THAN THE JSON. current time is. Upper round the distance to [1,5,10,15,20,25,50,100] miles, and under round rating to 20 40 60 80" + Date() }, { "role": "user", "content": x.text }]
                     },
                   )
                 }).then(x => x.json()).then(x => { props.setFilter(JSON.parse(x.choices[0].message.content)); props.setVoiceOpen(false); })
@@ -104,7 +107,8 @@ const Tab1: React.FC = () => {
       "description": "Brand new snow board, I am going out of town and cannot take it so you guys can rent it.",
       "from": "Steven J.",
       "price": 10,
-      "rating": 100
+      "rating": 100,
+      "dis": 5
     },
     {
       "id": 1,
@@ -113,7 +117,8 @@ const Tab1: React.FC = () => {
       "description": "High-Performance Liquid Chromatography with Electrospray Ionization Mass Spectrometry equipment, ideal for detailed chemical analysis. Available for short-term lease for research purposes.",
       "from": "Dr. Rachel K.",
       "price": 2000,
-      "rating": 80
+      "rating": 80,
+      "dis": 10
     },
     {
       "id": 1,
@@ -122,7 +127,8 @@ const Tab1: React.FC = () => {
       "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
       "from": "Barista Mike",
       "price": 100,
-      "rating": 50
+      "rating": 50,
+      "dis": 20
     },
     {
       "id": 1,
@@ -131,7 +137,28 @@ const Tab1: React.FC = () => {
       "description": "A VERY CUTE CAT JUST LIKE MYSELF! I will be out of town so someone please take care of it!",
       "from": "Barista Mike",
       "price": 50,
-      "rating": 30
+      "rating": 30,
+      "dis": 2
+    },
+    {
+      "id": 1,
+      "image": "/mom.webp",
+      "title": "My mom",
+      "description": "I can be your mom for a day.",
+      "from": "Barista Mike",
+      "price": 1000,
+      "rating": 3,
+      "dis": 2
+    },
+    {
+      "id": 1,
+      "image": "/cat2.png",
+      "title": "Programmer",
+      "description": "I can help you code!",
+      "from": "Barista Mike",
+      "price": 100000,
+      "rating": 100,
+      "dis": 2
     }
   ];
   useEffect(()=>{
@@ -141,7 +168,7 @@ const Tab1: React.FC = () => {
   },[])
   const [info, setInfo] = useState({});
   const [isDetileOpen, setDetileOpen] = useState(false);
-  const [filter, setFilter] = useState({ item_name: null, low:0, high:Infinity, rating: 0 });
+  const [filter, setFilter] = useState({ item_name: null, low:0, high:Infinity, rating: 0, dis:100000000 });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
@@ -159,6 +186,8 @@ const Tab1: React.FC = () => {
       return filter.low<x.price && x.price<filter.high
     }).filter(x=>{
       return x.rating>filter.rating
+    }).filter(x=>{
+      return x.dis<filter.dis
     })])
   }, [filter])
   return (
@@ -210,7 +239,7 @@ const Tab1: React.FC = () => {
             ))
           }
         </div>
-        <IonPopover style={{"--width":"80%"}} size="auto" trigger="filter" triggerAction="click">
+        <IonPopover style={{"--min-width":"80%"}} trigger="filter" triggerAction="click">
           <IonContent style={{width: "100%"}} class="ion-padding">
             <IonList>
               <IonItem>
@@ -233,18 +262,21 @@ const Tab1: React.FC = () => {
 
               <IonItem>
                 <IonLabel>Distance from me</IonLabel>
-                  <IonSelect>
-                    <IonSelectOption>1 miles</IonSelectOption>
-                    <IonSelectOption>5 miles</IonSelectOption>
-                    <IonSelectOption>15 miles</IonSelectOption>
-                    <IonSelectOption>20 miles</IonSelectOption>
-                    <IonSelectOption>25 miles</IonSelectOption>
+                <IonSelect value={filter.dis} onIonChange={(e)=>{
+                    filter.dis =(e.target.value)
+                    setFilter({...filter})
+                  }}>
+                    {
+                      [1,5,10,15,20,25,50,100].map(x=>(
+                        <IonSelectOption value={x}><IonIcon icon={thumbsUp}></IonIcon>{x} miles</IonSelectOption>
+                      ))
+                    }
                   </IonSelect>
               </IonItem>
 
               <IonItem>
                 <IonLabel>Min Rating</IonLabel>
-                  <IonSelect onIonChange={(e)=>{
+                  <IonSelect value={filter.rating} onIonChange={(e)=>{
                     filter.rating =(e.target.value)
                     setFilter({...filter})
                   }}>
