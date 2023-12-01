@@ -3,9 +3,10 @@ import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, Ion
 import "./Tab1.css"
 import { bookmark, bookmarkOutline, bookmarks, calendar, information } from "ionicons/icons"
 import { useState } from "react"
-import 'react-date-range/dist/styles.css'; // main style file
+import { DateRange } from 'react-date-range';
+import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
-import { DateRangePicker } from 'react-date-range';
+
 
 interface detail { setDetileOpen: Function, itemId: Number, info: Object };
 
@@ -22,7 +23,13 @@ const Detail = (props: detail) => {
         location: [49.9975, -119.4710],
         price: 123.78
     }
-
+    const [state, setState] = useState([
+        {
+            startDate: new Date(),
+            endDate: Date(),
+            key: 'selection'
+        }
+    ]);
     return (
         <>
             <IonHeader>
@@ -48,18 +55,20 @@ const Detail = (props: detail) => {
             <IonContent>
                 <IonModal isOpen={calendarOpen}>
                     <IonPage>
-                        <IonContent>
-                            <div>
-                                <DateRangePicker
-                                    range={{
-                                        startDate: new Date(),
-                                        endDate: new Date(),
-                                        key: 'selection',
-                                    }}
-                                />
-                            </div>
+                            <DateRange
+                                className="w-full"
+                                onChange={item => setState([item.selection])}
+                                showSelectionPreview={true}
+                                moveRangeOnFirstSelection={false}
+                                months={2}
+                                ranges={state}
+                                minDate={(new Date())}
+                                maxDate={(new Date("2023-12-10"))}
+                                editableDateInputs={true}
+                                direction="horizontal"
 
-                        </IonContent>
+                            />;
+
                     </IonPage>
                 </IonModal>
                 <img src={detail.image} className="p-5 rounded-3xl"></img>

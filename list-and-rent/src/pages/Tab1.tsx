@@ -200,8 +200,8 @@ const Tab1: React.FC = () => {
             ))
           }
         </div>
-        <IonPopover className="w-10" trigger="filter" triggerAction="click">
-          <IonContent class="ion-padding">
+        <IonPopover  trigger="filter" triggerAction="click">
+          <IonContent style={{width: "10000px"}} class="ion-padding">
             <IonList>
               <IonItem>
                 <IonLabel>Lowest Price: </IonLabel>
