@@ -1,4 +1,4 @@
-import { IonBadge, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonPopover, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBadge, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonPopover, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
 import { duplicateSharp, funnel, mic, micCircle, micOffCircle, person, search, thumbsUp } from 'ionicons/icons';
@@ -208,8 +208,8 @@ const Tab1: React.FC = () => {
             ))
           }
         </div>
-        <IonPopover size="auto" trigger="filter" triggerAction="click">
-          <IonContent style={{width: "10000px"}} class="ion-padding">
+        <IonPopover style={{"--width":"80%"}} size="auto" trigger="filter" triggerAction="click">
+          <IonContent style={{width: "100%"}} class="ion-padding">
             <IonList>
               <IonItem>
                 <IonLabel>Lowest Price: </IonLabel>
@@ -230,8 +230,14 @@ const Tab1: React.FC = () => {
               </IonItem>
 
               <IonItem>
-                Date
-                <IonInput type="date"></IonInput>
+                <IonLabel>Distance from me</IonLabel>
+                  <IonSelect>
+                    <IonSelectOption>1 miles</IonSelectOption>
+                    <IonSelectOption>5 miles</IonSelectOption>
+                    <IonSelectOption>15 miles</IonSelectOption>
+                    <IonSelectOption>20 miles</IonSelectOption>
+                    <IonSelectOption>25 miles</IonSelectOption>
+                  </IonSelect>
               </IonItem>
             </IonList>
           </IonContent>
