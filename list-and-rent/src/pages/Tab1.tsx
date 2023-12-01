@@ -135,6 +135,7 @@ const Tab1: React.FC = () => {
     trending_ = trending_.concat(JSON.parse(new_items))
     console.log(trending_)
   },[])
+  const [info, setInfo] = useState({});
   const [isDetileOpen, setDetileOpen] = useState(false);
   const [filter, setFilter] = useState({ item_name: null });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
@@ -167,7 +168,7 @@ const Tab1: React.FC = () => {
       <IonContent>
 
         <IonModal isOpen={isDetileOpen}>
-          <Detail setDetileOpen={setDetileOpen} itemId={itemId}></Detail>
+          <Detail setDetileOpen={setDetileOpen} itemId={itemId} info={info}></Detail>
         </IonModal>
         <div>
 
@@ -188,6 +189,7 @@ const Tab1: React.FC = () => {
             trending.map((x, index) => (
               <IonCard key={index} onClick={() => {
                 setDetileOpen(true);
+                setInfo(x);
                 setItemId(x.id);
               }} className="p-3 m-1 max-h-half">
                 <img src={x.image} className='width-full mb-1'></img>

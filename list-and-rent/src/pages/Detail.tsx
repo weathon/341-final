@@ -1,23 +1,25 @@
 import { faker } from "@faker-js/faker"
 import { IonButton, IonButtons, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonItem, IonLabel, IonModal, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react"
 import "./Tab1.css"
-import { bookmark, bookmarkOutline, bookmarks, calendar } from "ionicons/icons"
+import { bookmark, bookmarkOutline, bookmarks, calendar, information } from "ionicons/icons"
 import { useState } from "react"
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { DateRangePicker } from 'react-date-range';
 
-interface detail { setDetileOpen: Function, itemId: Number };
+interface detail { setDetileOpen: Function, itemId: Number, info: Object };
 
 const Detail = (props: detail) => {
     const [icon, setIcon] = useState(bookmarkOutline);
     const [calendarOpen, setCalenderOpen] = useState(false)
     const detail = {
-        image: faker.image.urlLoremFlickr({ category: 'abstract' }),
-        name: "HPLC-ESI-MS",
-        description: "High-Performance Liquid Chromatography with Electrospray Ionization Mass Spectrometry equipment, ideal for detailed chemical analysis. Available for short-term lease for research purposes.",
+        //@ts-ignore
+        image: props.info.image,
+        //@ts-ignore
+        name: props.info.title,
+        //@ts-ignore
+        description: props.info.description,
         location: [49.9975, -119.4710],
-        cat: "lab",
         price: 123.78
     }
 
