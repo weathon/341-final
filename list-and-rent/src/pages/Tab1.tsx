@@ -141,7 +141,7 @@ const Tab1: React.FC = () => {
   },[])
   const [info, setInfo] = useState({});
   const [isDetileOpen, setDetileOpen] = useState(false);
-  const [filter, setFilter] = useState({ item_name: null, low:0, high:Infinity });
+  const [filter, setFilter] = useState({ item_name: null, low:0, high:Infinity, rating: 0 });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
@@ -157,6 +157,8 @@ const Tab1: React.FC = () => {
       return x.title.toLowerCase().includes(filter.item_name.toLowerCase())
     }).filter(x=>{
       return filter.low<x.price && x.price<filter.high
+    }).filter(x=>{
+      return x.rating>filter.rating
     })])
   }, [filter])
   return (
@@ -237,6 +239,20 @@ const Tab1: React.FC = () => {
                     <IonSelectOption>15 miles</IonSelectOption>
                     <IonSelectOption>20 miles</IonSelectOption>
                     <IonSelectOption>25 miles</IonSelectOption>
+                  </IonSelect>
+              </IonItem>
+
+              <IonItem>
+                <IonLabel>Min Rating</IonLabel>
+                  <IonSelect onIonChange={(e)=>{
+                    filter.rating =(e.target.value)
+                    setFilter({...filter})
+                  }}>
+                    {
+                      [0,20,40,60,80].map(x=>(
+                        <IonSelectOption value={x}><IonIcon icon={thumbsUp}></IonIcon>{x}% Positive</IonSelectOption>
+                      ))
+                    }
                   </IonSelect>
               </IonItem>
             </IonList>
