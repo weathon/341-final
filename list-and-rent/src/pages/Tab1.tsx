@@ -16,7 +16,7 @@ function VoiceSearch(props: v) {
   const [transcript, setTranscript] = useState('Say what you want, like "I want to rent a snowboard on this Thursday, I want it for 7 days, and it should be cheaper than $500 total."')
   useEffect(() => {
     // https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API/Using_the_MediaStream_Recording_API
-    
+
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       console.log("getUserMedia supported.");
       navigator.mediaDevices
@@ -86,7 +86,7 @@ function VoiceSearch(props: v) {
 }
 const Tab1: React.FC = () => {
 
-  const trending_ = [
+  let trending_ = [
     {
       "id": 1,
       "image": "/sample (1).png",
@@ -123,12 +123,16 @@ const Tab1: React.FC = () => {
       "from": "Barista Mike"
     }
   ];
+  useEffect(()=>{
+    trending_ = trending_.concat(JSON.parse(localStorage.getItem("newItems")))
+    console.log(trending_)
+  },[])
   const [isDetileOpen, setDetileOpen] = useState(false);
   const [filter, setFilter] = useState({ item_name: null });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
-  useEffect(()=>{localStorage.setItem("APIKey", prompt("Enter Your API Key"))},[])
+  useEffect(() => { localStorage.getItem("APIKey") || localStorage.setItem("APIKey", prompt("Enter Your API Key")) }, [])
   useEffect(() => {
     if (!filter.item_name) {
       setTrending([...trending_])
@@ -153,7 +157,7 @@ const Tab1: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
- 
+
         <IonModal isOpen={isDetileOpen}>
           <Detail setDetileOpen={setDetileOpen} itemId={itemId}></Detail>
         </IonModal>

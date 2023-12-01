@@ -39,10 +39,10 @@ const Tab3: React.FC = () => {
         </div>
         <IonList>
           <IonItem>
-            <IonInput label="Title" placeholder='Input your title here'></IonInput>
+            <IonInput label="Title" id="title" placeholder='Input your title here'></IonInput>
           </IonItem>
           <IonItem>
-            <IonTextarea label="Description" placeholder='Input your text here'></IonTextarea>
+            <IonTextarea label="Description" id="des" placeholder='Input your text here'></IonTextarea>
           </IonItem>
           <IonItem>
             <IonInput label="Location" placeholder='Select your location'></IonInput>
@@ -61,6 +61,13 @@ const Tab3: React.FC = () => {
           </IonItem>
           <IonButton className="m-3" expand='block' onClick={()=>{
             setTimeout(()=>{
+              let tmp = JSON.parse(localStorage.getItem("newItems")) || []
+              tmp.push({
+                image: image,
+                // @ts-ignore
+                title: document.getElementById("title").value,                description: document.getElementById("des").value,
+              })
+              localStorage.setItem("newItems", JSON.stringify(tmp))
               alert("Submited!")
               window.location.href = window.location.href
             }, 500)
