@@ -1,12 +1,22 @@
 import { IonBadge, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonPopover, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
-import { duplicateSharp, funnel, mic, micCircle, micOffCircle, person, search } from 'ionicons/icons';
+import { duplicateSharp, funnel, mic, micCircle, micOffCircle, person, search, thumbsUp } from 'ionicons/icons';
 import { faker } from '@faker-js/faker';
 import Detail from './Detail';
 import { useEffect, useState } from 'react';
 
-
+const colormap =(v)=>{
+  if(v<50)
+  {
+    return "danger"
+  }
+  if(v<80)
+  {
+    return "warning"
+  }
+  return "success"
+}
 interface v {
   setFilter: Function,
   setVoiceOpen: Function
@@ -93,7 +103,8 @@ const Tab1: React.FC = () => {
       "title": "Snowboard",
       "description": "Brand new snow board, I am going out of town and cannot take it so you guys can rent it.",
       "from": "Steven J.",
-      "price": 10
+      "price": 10,
+      "rating": 100
     },
     {
       "id": 1,
@@ -101,7 +112,8 @@ const Tab1: React.FC = () => {
       "title": "Advanced HPLC-ESI-MS",
       "description": "High-Performance Liquid Chromatography with Electrospray Ionization Mass Spectrometry equipment, ideal for detailed chemical analysis. Available for short-term lease for research purposes.",
       "from": "Dr. Rachel K.",
-      "price": 2000
+      "price": 2000,
+      "rating": 80
     },
     {
       "id": 1,
@@ -109,7 +121,8 @@ const Tab1: React.FC = () => {
       "title": "Sleek Coffee Machine",
       "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
       "from": "Barista Mike",
-      "price": 100
+      "price": 100,
+      "rating": 50
     },
     {
       "id": 1,
@@ -117,7 +130,8 @@ const Tab1: React.FC = () => {
       "title": "Cute cat",
       "description": "A VERY CUTE CAT JUST LIKE MYSELF! I will be out of town so someone please take care of it!",
       "from": "Barista Mike",
-      "price": 50
+      "price": 50,
+      "rating": 30
     }
   ];
   useEffect(()=>{
@@ -127,7 +141,7 @@ const Tab1: React.FC = () => {
   },[])
   const [info, setInfo] = useState({});
   const [isDetileOpen, setDetileOpen] = useState(false);
-  const [filter, setFilter] = useState({ item_name: null, low:0, high:9999999999 });
+  const [filter, setFilter] = useState({ item_name: null, low:0, high:Infinity });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
@@ -186,7 +200,8 @@ const Tab1: React.FC = () => {
                 setItemId(x.id);
               }} className="p-3 m-1 max-h-half">
                 <img src={x.image} className='width-full mb-1'></img>
-                <IonBadge>CA${x.price}/day</IonBadge><br/>
+                <IonBadge>CA${x.price}/day</IonBadge>
+                <IonBadge className="ml-1" color={colormap(x.rating)}><IonIcon icon={thumbsUp}></IonIcon>{x.rating}%</IonBadge><br/>
                 <IonLabel>  <h3>{x.title}</h3>
                   <p>{x.description}</p></IonLabel>
               </IonCard>
