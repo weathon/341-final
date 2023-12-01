@@ -16,7 +16,7 @@ const Tab5 = ()=>{
       </IonHeader>
       <IonContent>
           <IonItem>{his && (<img style={{width:"30%"}} className="m-3 rounded-lg" src={his.image}></img>)}
-          <IonText><h3>{his.title}</h3><br/><p>{start} - {end}</p></IonText></IonItem>
+          <IonText><h3>{his.title}</h3><br/><p>{start} - {end}</p><br/>CA${his.price}</IonText></IonItem>
       </IonContent>
     </IonPage>
   )
