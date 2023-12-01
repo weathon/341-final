@@ -89,7 +89,7 @@ const Tab1: React.FC = () => {
   let trending_ = [
     {
       "id": 1,
-      "image": "/sample (1).png",
+      "image": "/sample (3).png",
       "title": "Snowboard",
       "description": "Brand new snow board, I am going out of town and cannot take it so you guys can rent it.",
       "from": "Steven J."
@@ -103,7 +103,7 @@ const Tab1: React.FC = () => {
     },
     {
       "id": 1,
-      "image": "/sample (3).png",
+      "image": "/sample (1).png",
       "title": "Sleek Coffee Machine",
       "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
       "from": "Barista Mike"
@@ -117,14 +117,22 @@ const Tab1: React.FC = () => {
     },
     {
       "id": 1,
-      "image": "/sample (2).png",
+      "image": "/sample (1).png",
       "title": "Sleek Coffee Machine",
       "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
       "from": "Barista Mike"
+    },
+    {
+      "id": 1,
+      "image": "/cat.png",
+      "title": "Cute cat",
+      "description": "A VERY CUTE CAT JUST LIKE MYSELF! I will be out of town so someone please take care of it!",
+      "from": "Barista Mike"   
     }
   ];
   useEffect(()=>{
-    trending_ = trending_.concat(JSON.parse(localStorage.getItem("newItems")))
+    let new_items = localStorage.getItem("newItems") || "[]";
+    trending_ = trending_.concat(JSON.parse(new_items))
     console.log(trending_)
   },[])
   const [isDetileOpen, setDetileOpen] = useState(false);
@@ -190,7 +198,7 @@ const Tab1: React.FC = () => {
             ))
           }
         </div>
-        <IonPopover trigger="filter" triggerAction="click">
+        <IonPopover className="w-10" trigger="filter" triggerAction="click">
           <IonContent class="ion-padding">
             <IonList>
               <IonItem>
