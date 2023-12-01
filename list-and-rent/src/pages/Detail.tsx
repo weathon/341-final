@@ -11,6 +11,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 interface detail { setDetileOpen: Function, itemId: Number, info: Object };
 
 const Detail = (props: detail) => {
+    let endDate = "Dec 30, 2023"
     const [icon, setIcon] = useState(bookmarkOutline);
     const [calendarOpen, setCalenderOpen] = useState(false)
     const detail = {
@@ -63,11 +64,18 @@ const Detail = (props: detail) => {
                                 months={2}
                                 ranges={state}
                                 minDate={(new Date())}
-                                maxDate={(new Date("2023-12-10"))}
+                                maxDate={(new Date(endDate))}
                                 editableDateInputs={true}
                                 direction="horizontal"
+                            />
+                            <IonButton expand="block" onClick={()=>{
+                                alert("Booked");
+                                setCalenderOpen(false);
+                            setTimeout(()=>{
+                                props.setDetileOpen(false)
+                            }, 300)
+                            }}>Book</IonButton>
 
-                            />;
 
                     </IonPage>
                 </IonModal>
@@ -76,7 +84,7 @@ const Detail = (props: detail) => {
                     <p>{detail.description}</p>
                 </IonItem>
                 <IonItem>
-                    May 20, 2023 - Dec 10, 2023 <IonButton slot="end" onClick={() => {
+                    May 20, 2023 - {endDate} <IonButton slot="end" onClick={() => {
                         setCalenderOpen(true);
                     }}><IonIcon icon={calendar}></IonIcon></IonButton>
                 </IonItem>

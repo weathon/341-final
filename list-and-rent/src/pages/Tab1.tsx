@@ -1,7 +1,7 @@
-import { IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonPopover, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBadge, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonPopover, IonRow, IonSearchbar, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
-import { funnel, mic, micCircle, micOffCircle, person, search } from 'ionicons/icons';
+import { duplicateSharp, funnel, mic, micCircle, micOffCircle, person, search } from 'ionicons/icons';
 import { faker } from '@faker-js/faker';
 import Detail from './Detail';
 import { useEffect, useState } from 'react';
@@ -92,42 +92,32 @@ const Tab1: React.FC = () => {
       "image": "/sample (3).png",
       "title": "Snowboard",
       "description": "Brand new snow board, I am going out of town and cannot take it so you guys can rent it.",
-      "from": "Steven J."
+      "from": "Steven J.",
+      "price": 10
     },
     {
       "id": 1,
       "image": "/sample (2).png",
       "title": "Advanced HPLC-ESI-MS",
       "description": "High-Performance Liquid Chromatography with Electrospray Ionization Mass Spectrometry equipment, ideal for detailed chemical analysis. Available for short-term lease for research purposes.",
-      "from": "Dr. Rachel K."
+      "from": "Dr. Rachel K.",
+      "price": 2000
     },
     {
       "id": 1,
       "image": "/sample (1).png",
       "title": "Sleek Coffee Machine",
       "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
-      "from": "Barista Mike"
-    },
-    {
-      "id": 1,
-      "image": "/sample (1).png",
-      "title": "Sleek Coffee Machine",
-      "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
-      "from": "Barista Mike"
-    },
-    {
-      "id": 1,
-      "image": "/sample (1).png",
-      "title": "Sleek Coffee Machine",
-      "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
-      "from": "Barista Mike"
+      "from": "Barista Mike",
+      "price": 100
     },
     {
       "id": 1,
       "image": "/cat.png",
       "title": "Cute cat",
       "description": "A VERY CUTE CAT JUST LIKE MYSELF! I will be out of town so someone please take care of it!",
-      "from": "Barista Mike"   
+      "from": "Barista Mike",
+      "price": 50
     }
   ];
   useEffect(()=>{
@@ -137,19 +127,22 @@ const Tab1: React.FC = () => {
   },[])
   const [info, setInfo] = useState({});
   const [isDetileOpen, setDetileOpen] = useState(false);
-  const [filter, setFilter] = useState({ item_name: null });
+  const [filter, setFilter] = useState({ item_name: null, low:0, high:9999999999 });
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
   useEffect(() => { localStorage.getItem("APIKey") || localStorage.setItem("APIKey", prompt("Enter Your API Key")) }, [])
   useEffect(() => {
     if (!filter.item_name) {
-      setTrending([...trending_])
-      return;
+      // setTrending([...trending_])
+      // return;
+      filter.item_name = ""
     }
     setTrending([...trending_.filter((x) => {
       //@ts-ignore
       return x.title.toLowerCase().includes(filter.item_name.toLowerCase())
+    }).filter(x=>{
+      return filter.low<x.price && x.price<filter.high
     })])
   }, [filter])
   return (
@@ -177,7 +170,7 @@ const Tab1: React.FC = () => {
             <IonCol className="m-0 p-0"><IonSearchbar value={filter.item_name} className="pl-0 ml-0 mr-0 pr-0" placeholder="Default" onIonChange={(e) => {
               console.log(e.detail.value)
               filter.item_name = e.detail.value;
-              setFilter({ ...filter })
+              setFilter({...filter})
               console.log(filter)
             }}></IonSearchbar></IonCol>
             <IonCol size="auto" className='grid text-center place-content-center m-2'><IonIcon icon={mic} className="text-xl" onClick={() => { setVoiceOpen(true) }}></IonIcon></IonCol>
@@ -193,24 +186,32 @@ const Tab1: React.FC = () => {
                 setItemId(x.id);
               }} className="p-3 m-1 max-h-half">
                 <img src={x.image} className='width-full mb-1'></img>
+                <IonBadge>CA${x.price}/day</IonBadge><br/>
                 <IonLabel>  <h3>{x.title}</h3>
                   <p>{x.description}</p></IonLabel>
-
               </IonCard>
             ))
           }
         </div>
-        <IonPopover  trigger="filter" triggerAction="click">
+        <IonPopover size="auto" trigger="filter" triggerAction="click">
           <IonContent style={{width: "10000px"}} class="ion-padding">
             <IonList>
               <IonItem>
                 <IonLabel>Lowest Price: </IonLabel>
-                <IonInput></IonInput>
+                <IonInput value={filter.low} onIonChange={(e)=>{
+                  console.log(filter)
+                  filter.low = Number(e.target.value);
+                  setFilter({...filter})
+                }}></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel>Highest Price: </IonLabel>
-                <IonInput></IonInput>
+                <IonInput value={filter.high} onIonChange={(e)=>{
+                  console.log(filter)
+                  filter.high = Number(e.target.value);
+                  setFilter({...filter})
+                }}></IonInput>
               </IonItem>
 
               <IonItem>
