@@ -57,15 +57,16 @@ const Tab3: React.FC = () => {
             </IonSelect>
           </IonItem>
           <IonItem>
-            <IonInput type="number" label="Price" placeholder='Enter price'></IonInput>
+            <IonInput type="number" id="price" label="Price" placeholder='Enter price'></IonInput>
           </IonItem>
           <IonButton className="m-3" expand='block' onClick={()=>{
             setTimeout(()=>{
               let tmp = JSON.parse(localStorage.getItem("newItems")) || []
               tmp.push({
                 image: image,
+                rating: 100,
                 // @ts-ignore
-                title: document.getElementById("title").value,                description: document.getElementById("des").value,
+                title: document.getElementById("title").value,                description: document.getElementById("des").value,price: document.getElementById("price").value
               })
               localStorage.setItem("newItems", JSON.stringify(tmp))
               alert("Submited!")

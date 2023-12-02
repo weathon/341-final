@@ -159,6 +159,16 @@ const Tab1: React.FC = () => {
       "price": 100000,
       "rating": 100,
       "dis": 2
+    },
+    {
+      "id": 1,
+      "image": "/iphone.webp",
+      "title": "iPhone 19 XR Pro Max Ultra Plus",
+      "description": "Best iPhone you can get in the world!",
+      "from": "Barista Mike",
+      "price": 2312,
+      "rating": 97,
+      "dis": 10
     }
   ];
   useEffect(()=>{
