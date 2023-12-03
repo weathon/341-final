@@ -5,7 +5,7 @@ import { images } from 'ionicons/icons';
 import { useState } from 'react';
 
 const Tab3: React.FC = () => {
-  const catOptions = ["Books", "Sport Gears", "Electronics"];
+  const catOptions = ["Books", "Sport Gears", "Electronics", "Others"];
   const [image, setImage] = useState("");
   return (
     <IonPage>

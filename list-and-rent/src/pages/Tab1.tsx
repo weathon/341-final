@@ -4,7 +4,7 @@ import './Tab1.css';
 import { closeCircleOutline, duplicateSharp, funnel, mic, micCircle, micOffCircle, person, search, thumbsUp } from 'ionicons/icons';
 import { faker } from '@faker-js/faker';
 import Detail from './Detail';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const colormap = (v) => {
   if (v < 50) {
@@ -172,15 +172,19 @@ const Tab1: React.FC = () => {
     }
   ];
   useEffect(() => {
-    let new_items = localStorage.getItem("newItems") || "[]";
-    trending_ = trending_.concat(JSON.parse(new_items))
+    let new_items = JSON.parse(localStorage.getItem("newItems") || "[]");
+    for (var i = 0; i < new_items.length; i++) {
+      new_items[i].id = 1;
+    }
+    trending_ = trending_.concat(new_items)
+
     console.log(trending_)
   }, [])
   const [info, setInfo] = useState({});
   const [isDetileOpen, setDetileOpen] = useState(false);
   const [filter, setFilter] = useState({ item_name: "", low: 0, high: Infinity, rating: 0, dis: Infinity });
   const defaultFilter = { item_name: "", low: 0, high: Infinity, rating: 0, dis: Infinity };
-
+  const popover = useRef(null);
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
@@ -236,12 +240,12 @@ const Tab1: React.FC = () => {
           <div className='p-3'>
             {
               Object.keys(filter).map((x, index) => {
-                const filterLabel = {low: "Min Price: $", high: "Max Price: $", rating: "Min Rating: ", dis:"Miles to me: " };
+                const filterLabel = { low: "Min Price: $", high: "Max Price: $", rating: "Min Rating: ", dis: "Miles to me: " };
 
-                if (filter[x] != defaultFilter[x] && x!="item_name") {
-                  return <IonBadge>{filterLabel[x]}{filter[x]} <IonIcon onClick={()=>{
-                    filter[x]=defaultFilter[x];
-                    setFilter({...filter})
+                if (filter[x] != defaultFilter[x] && x != "item_name") {
+                  return <IonBadge>{filterLabel[x]}{filter[x]} <IonIcon onClick={() => {
+                    filter[x] = defaultFilter[x];
+                    setFilter({ ...filter })
                   }} icon={closeCircleOutline}></IonIcon></IonBadge>
                 }
               })
@@ -265,7 +269,7 @@ const Tab1: React.FC = () => {
             ))
           }
         </div>
-        <IonPopover style={{ "--min-width": "80%" }} trigger="filter" triggerAction="click">
+        <IonPopover style={{ "--min-width": "80%" }} trigger="filter" ref={popover} triggerAction="click">
           <IonContent style={{ width: "100%" }} class="ion-padding">
             <IonList>
               <IonItem>
@@ -313,7 +317,9 @@ const Tab1: React.FC = () => {
                   }
                 </IonSelect>
               </IonItem>
-              <IonButton expand="block">Apply Filter</IonButton>
+              <IonButton expand="block" onClick={()=>{
+                popover.current.dismiss()
+              }}>Apply Filter</IonButton>
             </IonList>
           </IonContent>
         </IonPopover>
