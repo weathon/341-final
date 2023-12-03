@@ -1,18 +1,16 @@
 import { IonBadge, IonButton, IonButtons, IonCard, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonModal, IonPage, IonPopover, IonRadio, IonRadioGroup, IonRow, IonSearchbar, IonSelect, IonSelectOption, IonText, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab1.css';
-import { duplicateSharp, funnel, mic, micCircle, micOffCircle, person, search, thumbsUp } from 'ionicons/icons';
+import { closeCircleOutline, duplicateSharp, funnel, mic, micCircle, micOffCircle, person, search, thumbsUp } from 'ionicons/icons';
 import { faker } from '@faker-js/faker';
 import Detail from './Detail';
 import { useEffect, useState } from 'react';
 
-const colormap =(v)=>{
-  if(v<50)
-  {
+const colormap = (v) => {
+  if (v < 50) {
     return "danger"
   }
-  if(v<80)
-  {
+  if (v < 80) {
     return "warning"
   }
   return "success"
@@ -66,10 +64,12 @@ function VoiceSearch(props: v) {
                   method: "POST", body: JSON.stringify(
                     {
                       "model": "gpt-4",
-                      "messages": [{ "role": "system", "content": "You will get a text input from user, please return a JSON format\
+                      "messages": [{
+                        "role": "system", "content": "You will get a text input from user, please return a JSON format\
                        (ONLY JSON FORMAT ONLY, NOTHING ELSE) including user's search detial, in format as \
                        {low: lowest price, high: high price, dis: distance from me, time_range: [start_date (YYYY/MM/DD), end date (YYYY/MM/DD)], item_name: name, rating: min_rating }\
-                        if name is not said, return null, if low price not said, return 0, if high not said, return Infinity, if rating not said return 0, if dis not said return 100. REMEMBER, ONLY JSON, nothing else, since it will be processed by a JSON engine and user will not drectly see your output. If user provided nothing, return everything as null. Remember DO NOT SAY ANYTHING OTHER THAN THE JSON. current time is. Upper round the distance to [1,5,10,15,20,25,50,100] miles, and under round rating to 20 40 60 80" + Date() }, { "role": "user", "content": x.text }]
+                        if name is not said, return null, if low price not said, return 0, if high not said, return Infinity, if rating not said return 0, if dis not said return 100. REMEMBER, ONLY JSON, nothing else, since it will be processed by a JSON engine and user will not drectly see your output. If user provided nothing, return everything as null. Remember DO NOT SAY ANYTHING OTHER THAN THE JSON. current time is. Upper round the distance to [1,5,10,15,20,25,50,100] miles, and under round rating to 20 40 60 80" + Date()
+                      }, { "role": "user", "content": x.text }]
                     },
                   )
                 }).then(x => x.json()).then(x => { props.setFilter(JSON.parse(x.choices[0].message.content)); props.setVoiceOpen(false); })
@@ -171,14 +171,16 @@ const Tab1: React.FC = () => {
       "dis": 10
     }
   ];
-  useEffect(()=>{
+  useEffect(() => {
     let new_items = localStorage.getItem("newItems") || "[]";
     trending_ = trending_.concat(JSON.parse(new_items))
     console.log(trending_)
-  },[])
+  }, [])
   const [info, setInfo] = useState({});
   const [isDetileOpen, setDetileOpen] = useState(false);
-  const [filter, setFilter] = useState({ item_name: null, low:0, high:Infinity, rating: 0, dis:100000000 });
+  const [filter, setFilter] = useState({ item_name: "", low: 0, high: Infinity, rating: 0, dis: Infinity });
+  const defaultFilter = { item_name: "", low: 0, high: Infinity, rating: 0, dis: Infinity };
+
   const [isVoiceOpen, setVoiceOpen] = useState(false);
   const [itemId, setItemId] = useState(-1);
   const [trending, setTrending] = useState(trending_);
@@ -192,12 +194,12 @@ const Tab1: React.FC = () => {
     setTrending([...trending_.filter((x) => {
       //@ts-ignore
       return x.title.toLowerCase().includes(filter.item_name.toLowerCase())
-    }).filter(x=>{
-      return filter.low<x.price && x.price<filter.high
-    }).filter(x=>{
-      return x.rating>filter.rating
-    }).filter(x=>{
-      return x.dis<filter.dis
+    }).filter(x => {
+      return filter.low < x.price && x.price < filter.high
+    }).filter(x => {
+      return x.rating > filter.rating
+    }).filter(x => {
+      return x.dis < filter.dis
     })])
   }, [filter])
   return (
@@ -225,12 +227,26 @@ const Tab1: React.FC = () => {
             <IonCol className="m-0 p-0"><IonSearchbar value={filter.item_name} className="pl-0 ml-0 mr-0 pr-0" placeholder="Default" onIonChange={(e) => {
               console.log(e.detail.value)
               filter.item_name = e.detail.value;
-              setFilter({...filter})
+              setFilter({ ...filter })
               console.log(filter)
             }}></IonSearchbar></IonCol>
             <IonCol size="auto" className='grid text-center place-content-center m-2'><IonIcon icon={mic} className="text-xl" onClick={() => { setVoiceOpen(true) }}></IonIcon></IonCol>
 
           </IonRow>
+          <div className='p-3'>
+            {
+              Object.keys(filter).map((x, index) => {
+                const filterLabel = {low: "Min Price: $", high: "Max Price: $", rating: "Min Rating: ", dis:"Miles to me: " };
+
+                if (filter[x] != defaultFilter[x] && x!="item_name") {
+                  return <IonBadge>{filterLabel[x]}{filter[x]} <IonIcon onClick={()=>{
+                    filter[x]=defaultFilter[x];
+                    setFilter({...filter})
+                  }} icon={closeCircleOutline}></IonIcon></IonBadge>
+                }
+              })
+            }
+          </div>
         </div>
         <div className='grid grid-cols-2'>
           {
@@ -242,61 +258,62 @@ const Tab1: React.FC = () => {
               }} className="p-3 m-1 max-h-half">
                 <img src={x.image} className='width-full mb-1'></img>
                 <IonBadge>CA${x.price}/day</IonBadge>
-                <IonBadge className="ml-1" color={colormap(x.rating)}><IonIcon icon={thumbsUp}></IonIcon>{x.rating}%</IonBadge><br/>
+                <IonBadge className="ml-1" color={colormap(x.rating)}><IonIcon icon={thumbsUp}></IonIcon>{x.rating}%</IonBadge><br />
                 <IonLabel>  <h3>{x.title}</h3>
                   <p>{x.description}</p></IonLabel>
               </IonCard>
             ))
           }
         </div>
-        <IonPopover style={{"--min-width":"80%"}} trigger="filter" triggerAction="click">
-          <IonContent style={{width: "100%"}} class="ion-padding">
+        <IonPopover style={{ "--min-width": "80%" }} trigger="filter" triggerAction="click">
+          <IonContent style={{ width: "100%" }} class="ion-padding">
             <IonList>
               <IonItem>
                 <IonLabel>Lowest Price: </IonLabel>
-                <IonInput value={filter.low} onIonChange={(e)=>{
+                <IonInput value={filter.low} onIonChange={(e) => {
                   console.log(filter)
                   filter.low = Number(e.target.value);
-                  setFilter({...filter})
+                  setFilter({ ...filter })
                 }}></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel>Highest Price: </IonLabel>
-                <IonInput value={filter.high} onIonChange={(e)=>{
+                <IonInput value={filter.high} onIonChange={(e) => {
                   console.log(filter)
                   filter.high = Number(e.target.value);
-                  setFilter({...filter})
+                  setFilter({ ...filter })
                 }}></IonInput>
               </IonItem>
 
               <IonItem>
                 <IonLabel>Distance from me</IonLabel>
-                <IonSelect value={filter.dis} onIonChange={(e)=>{
-                    filter.dis =(e.target.value)
-                    setFilter({...filter})
-                  }}>
-                    {
-                      [1,5,10,15,20,25,50,100].map(x=>(
-                        <IonSelectOption value={x}><IonIcon icon={thumbsUp}></IonIcon>{x} miles</IonSelectOption>
-                      ))
-                    }
-                  </IonSelect>
+                <IonSelect value={filter.dis} onIonChange={(e) => {
+                  filter.dis = (e.target.value)
+                  setFilter({ ...filter })
+                }}>
+                  {
+                    [1, 5, 10, 15, 20, 25, 50, 100].map(x => (
+                      <IonSelectOption value={x}><IonIcon icon={thumbsUp}></IonIcon>{x} miles</IonSelectOption>
+                    ))
+                  }
+                </IonSelect>
               </IonItem>
 
               <IonItem>
                 <IonLabel>Min Rating</IonLabel>
-                  <IonSelect value={filter.rating} onIonChange={(e)=>{
-                    filter.rating =(e.target.value)
-                    setFilter({...filter})
-                  }}>
-                    {
-                      [0,20,40,60,80].map(x=>(
-                        <IonSelectOption value={x}><IonIcon icon={thumbsUp}></IonIcon>{x}% Positive</IonSelectOption>
-                      ))
-                    }
-                  </IonSelect>
+                <IonSelect value={filter.rating} onIonChange={(e) => {
+                  filter.rating = (e.target.value)
+                  setFilter({ ...filter })
+                }}>
+                  {
+                    [0, 20, 40, 60, 80].map(x => (
+                      <IonSelectOption value={x}><IonIcon icon={thumbsUp}></IonIcon>{x}% Positive</IonSelectOption>
+                    ))
+                  }
+                </IonSelect>
               </IonItem>
+              <IonButton expand="block">Apply Filter</IonButton>
             </IonList>
           </IonContent>
         </IonPopover>
