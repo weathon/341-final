@@ -101,18 +101,55 @@ const Tab1: React.FC = () => {
 
   let trending_ = [
     {
-      "id": 1,
-      "image": "/sample (3).png",
-      "title": "Snowboard",
-      "description": "Brand new snow board, I am going out of town and cannot take it so you guys can rent it.",
-      "from": "Steven J.",
-      "price": 10,
-      "rating": 100,
-      "dis": 5
+      "image": "image (7).png",
+      "title": "City Explorer Bicycle",
+      "description": "A versatile, lightweight bicycle perfect for urban adventures. Features a comfortable seat, smooth gears, and a durable frame.",
+      "price": 15,
+      "dis": 9,
+      "rating": 88,
+      "username": "UrbanRider"
     },
     {
+      "image": "image (8).png",
+      "title": "Portable Projector",
+      "description": "Compact HD projector, ideal for movie nights or presentations. Easy to set up, compatible with various devices, and comes with a carry case.",
+      "price": 20,
+      "rating": 92,
+      "dis": 50,
+      "username": "TechEnthusiast"
+    },
+    {
+      "image": "image (6).png",
+      "title": "Professional Camera Kit",
+      "description": "A high-quality DSLR camera with multiple lenses, perfect for photography enthusiasts. Includes a tripod, carry bag, and memory cards.",
+      "price": 40,
+      "rating": 95,
+      "dis": 27,
+      "username": "Shutterbug"
+    },
+    {
+      "image": "image (5).png",
+      "title": "Beach Day Package",
+      "description": "Everything you need for a perfect day at the beach: includes a sun umbrella, two chairs, a cooler, and beach toys.",
+      "price": 25,
+      "rating": 90,
+      "dis": 23,
+      "username": "SandyToes"
+    },
+    {
+      "image": "image (4).png",
+      "title": "Camping Adventure Gear",
+      "description": "A complete camping set with a tent, sleeping bags, cooking equipment, and a portable stove. Perfect for outdoor enthusiasts.",
+      "price": 35,
+      "rating": 93,
+      "username": "NatureLover",
+      "dis": 18
+
+    },
+
+    {
       "id": 1,
-      "image": "/sample (2).png",
+      "image": "/hplc.png",
       "title": "Advanced HPLC-ESI-MS",
       "description": "High-Performance Liquid Chromatography with Electrospray Ionization Mass Spectrometry equipment, ideal for detailed chemical analysis. Available for short-term lease for research purposes.",
       "from": "Dr. Rachel K.",
@@ -121,55 +158,37 @@ const Tab1: React.FC = () => {
       "dis": 10
     },
     {
-      "id": 1,
-      "image": "/sample (1).png",
-      "title": "Sleek Coffee Machine",
-      "description": "Modern, high-efficiency coffee machine perfect for coffee enthusiasts. Available for rent, includes a variety of brewing options and easy-to-clean features.",
-      "from": "Barista Mike",
-      "price": 100,
-      "rating": 50,
-      "dis": 20
+      "image": "image (3).png",
+
+      "title": "Universal Smartphone Charger",
+      "description": "A fast-charging and versatile smartphone charger compatible with multiple devices. Features overcharge protection and a compact design.",
+      "price": 5,
+      "rating": 85,
+      "dis": 10,
+      "username": "ChargeMaster"
     },
     {
-      "id": 1,
-      "image": "/cat.png",
-      "title": "Cute cat",
-      "description": "A VERY CUTE CAT JUST LIKE MYSELF! I will be out of town so someone please take care of it!",
-      "from": "Barista Mike",
-      "price": 50,
-      "rating": 30,
-      "dis": 2
+      "image": "image (2).png",
+
+      "title": "Mystery Thriller Novel",
+      "description": "A gripping and suspenseful mystery novel by a bestselling author. Perfect for fans of thrilling stories and complex characters.",
+      "price": 3,
+      "rating": 80,
+      "dis": 30,
+
+      "username": "Bookworm"
     },
     {
-      "id": 1,
-      "image": "/mom.webp",
-      "title": "My mom",
-      "description": "I can be your mom for a day.",
-      "from": "Barista Mike",
-      "price": 1000,
-      "rating": 3,
-      "dis": 2
-    },
-    {
-      "id": 1,
-      "image": "/cat2.png",
-      "title": "Programmer",
-      "description": "I can help you code!",
-      "from": "Barista Mike",
-      "price": 100000,
-      "rating": 100,
-      "dis": 2
-    },
-    {
-      "id": 1,
-      "image": "/iphone.webp",
-      "title": "iPhone 19 XR Pro Max Ultra Plus",
-      "description": "Best iPhone you can get in the world!",
-      "from": "Barista Mike",
-      "price": 2312,
-      "rating": 97,
-      "dis": 10
+      "image": "image (1).png",
+
+      "title": "Insulated Winter Coat",
+      "description": "A stylish and warm winter coat, suitable for extreme cold. Features waterproof material, a detachable hood, and inner thermal lining.",
+      "price": 18,
+      "dis": 50,
+      "rating": 91,
+      "username": "WinterWardrobe"
     }
+
   ];
   useEffect(() => {
     let new_items = JSON.parse(localStorage.getItem("newItems") || "[]");
@@ -317,7 +336,7 @@ const Tab1: React.FC = () => {
                   }
                 </IonSelect>
               </IonItem>
-              <IonButton expand="block" onClick={()=>{
+              <IonButton expand="block" onClick={() => {
                 popover.current.dismiss()
               }}>Apply Filter</IonButton>
             </IonList>

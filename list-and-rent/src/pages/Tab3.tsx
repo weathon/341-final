@@ -3,6 +3,7 @@ import ExploreContainer from '../components/ExploreContainer';
 import './Tab3.css';
 import { images } from 'ionicons/icons';
 import { useState } from 'react';
+import Autocomplete from "react-google-autocomplete";
 
 const Tab3: React.FC = () => {
   const catOptions = ["Books", "Sport Gears", "Electronics", "Others"];
@@ -31,9 +32,9 @@ const Tab3: React.FC = () => {
           {/* now i do not need text-center wtf oh i have child in div */}
           <div>
             {
-              !image ?<><IonIcon icon={images} className="text-4xl"></IonIcon>
+              !image ? <><IonIcon icon={images} className="text-4xl"></IonIcon>
                 <p>Add a photo here</p></>
-              :<img src={image}></img>
+                : <img src={image}></img>
             }
           </div>
         </div>
@@ -45,7 +46,10 @@ const Tab3: React.FC = () => {
             <IonTextarea label="Description" id="des" placeholder='Input your text here'></IonTextarea>
           </IonItem>
           <IonItem>
-            <IonInput label="Location" placeholder='Select your location'></IonInput>
+            <Autocomplete
+              apiKey="AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ"
+              onPlaceSelected={(place) => console.log(place)}
+            />
           </IonItem>
           <IonItem>
             <IonSelect interface="action-sheet" label="Category">
@@ -59,14 +63,14 @@ const Tab3: React.FC = () => {
           <IonItem>
             <IonInput type="number" id="price" label="Price" placeholder='Enter price'></IonInput>
           </IonItem>
-          <IonButton className="m-3" expand='block' onClick={()=>{
-            setTimeout(()=>{
+          <IonButton className="m-3" expand='block' onClick={() => {
+            setTimeout(() => {
               let tmp = JSON.parse(localStorage.getItem("newItems")) || []
               tmp.push({
                 image: image,
                 rating: 100,
                 // @ts-ignore
-                title: document.getElementById("title").value,                description: document.getElementById("des").value,price: document.getElementById("price").value
+                title: document.getElementById("title").value, description: document.getElementById("des").value, price: document.getElementById("price").value
               })
               localStorage.setItem("newItems", JSON.stringify(tmp))
               alert("Submited!")
