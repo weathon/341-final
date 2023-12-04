@@ -106,7 +106,7 @@ const Tab1: React.FC = () => {
       "description": "A versatile, lightweight bicycle perfect for urban adventures. Features a comfortable seat, smooth gears, and a durable frame.",
       "price": 15,
       "dis": 9,
-      "rating": 88,
+      "rating": 38,
       "username": "UrbanRider"
     },
     {
@@ -114,7 +114,7 @@ const Tab1: React.FC = () => {
       "title": "Portable Projector",
       "description": "Compact HD projector, ideal for movie nights or presentations. Easy to set up, compatible with various devices, and comes with a carry case.",
       "price": 20,
-      "rating": 92,
+      "rating": 52,
       "dis": 50,
       "username": "TechEnthusiast"
     },
@@ -123,7 +123,7 @@ const Tab1: React.FC = () => {
       "title": "Professional Camera Kit",
       "description": "A high-quality DSLR camera with multiple lenses, perfect for photography enthusiasts. Includes a tripod, carry bag, and memory cards.",
       "price": 40,
-      "rating": 95,
+      "rating": 85,
       "dis": 27,
       "username": "Shutterbug"
     },
@@ -132,7 +132,7 @@ const Tab1: React.FC = () => {
       "title": "Beach Day Package",
       "description": "Everything you need for a perfect day at the beach: includes a sun umbrella, two chairs, a cooler, and beach toys.",
       "price": 25,
-      "rating": 90,
+      "rating": 20,
       "dis": 23,
       "username": "SandyToes"
     },
@@ -141,7 +141,7 @@ const Tab1: React.FC = () => {
       "title": "Camping Adventure Gear",
       "description": "A complete camping set with a tent, sleeping bags, cooking equipment, and a portable stove. Perfect for outdoor enthusiasts.",
       "price": 35,
-      "rating": 93,
+      "rating": 43,
       "username": "NatureLover",
       "dis": 18
 
