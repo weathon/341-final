@@ -1,13 +1,22 @@
-import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonList, IonPage, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonPage, IonPopover, IonSelect, IonSelectOption, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab3.css';
 import { images } from 'ionicons/icons';
 import { useState } from 'react';
-import Autocomplete from "react-google-autocomplete";
+import usePlacesService from "react-google-autocomplete/lib/usePlacesAutocompleteService";
 
 const Tab3: React.FC = () => {
   const catOptions = ["Books", "Sport Gears", "Electronics", "Others"];
   const [image, setImage] = useState("");
+  const [display, setDisplay] = useState(false)
+  const {
+    placesService,
+    placePredictions,
+    getPlacePredictions,
+    isPlacePredictionsLoading,
+  } = usePlacesService({
+    apiKey: "AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ",
+  });
   return (
     <IonPage>
       <input type='file' hidden id="file" onChange={(e) => {
@@ -46,10 +55,25 @@ const Tab3: React.FC = () => {
             <IonTextarea label="Description" id="des" placeholder='Input your text here'></IonTextarea>
           </IonItem>
           <IonItem>
-            <Autocomplete
-              apiKey="AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ"
-              onPlaceSelected={(place) => console.log(place)}
+            <IonLabel>Location</IonLabel>
+            <input
+              id="loc"
+              onFocus={()=>{setDisplay(true)}}
+              onBlur={()=>{setTimeout(()=>{setDisplay(false)},100)}}
+              placeholder="Location"
+              onChange={(evt) => {
+                getPlacePredictions({ input: evt.target.value });
+              }}
+            // loading={isPlacePredictionsLoading}
             />
+          </IonItem>
+          <IonItem hidden={!display}>
+            <IonList>            {
+              isPlacePredictionsLoading ? <p>Loading</p> :
+                <>{placePredictions.map((item) => (<IonItem onClick={()=>{
+                 (document.getElementById("loc") as HTMLInputElement).value = item.description
+                }}>{item.description}</IonItem>))}</>
+            }</IonList>
           </IonItem>
           <IonItem>
             <IonSelect interface="action-sheet" label="Category">
