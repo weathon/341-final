@@ -166,9 +166,11 @@ const Detail = (props: detail) => {
                 <IonItem>
                     May 20, 2023 - {endDate} <IonButton slot="end" onClick={() => {
                         setCalenderOpen(true);
-                    }}><IonIcon icon={calendar}></IonIcon></IonButton>
+                    }}>Book</IonButton>
                 </IonItem>
-                <IonItem><img width="100%" src={"https://maps.googleapis.com/maps/api/staticmap?center=" + detail.location[0] + "," + detail.location[1] + "&markers=" + detail.location[0] + "," + detail.location[1] + "&zoom=12&size=800x400&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ"}></img></IonItem>
+                <IonItem>Price: ${props.info.price} <span className="pl-5 pr-5"></span>
+                Rating: {props.info.rating}%</IonItem>
+                <IonItem>Location:<br/><img width="100%" src={"https://maps.googleapis.com/maps/api/staticmap?center=" + detail.location[0] + "," + detail.location[1] + "&markers=" + detail.location[0] + "," + detail.location[1] + "&zoom=12&size=800x400&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ"}></img></IonItem>
                 <IonButton expand="block" onClick={()=>{setOpen(true)}}><IonIcon icon={chatbox}></IonIcon>Chat with owner</IonButton>
                 {/* 
                 <IonFab slot="fixed" vertical="bottom" horizontal="end">
