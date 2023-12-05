@@ -9,6 +9,7 @@ const Tab3: React.FC = () => {
   const catOptions = ["Books", "Sport Gears", "Electronics", "Others"];
   const [image, setImage] = useState("");
   const [display, setDisplay] = useState(false)
+  let loc = [];
   const {
     placesService,
     placePredictions,
@@ -71,7 +72,12 @@ const Tab3: React.FC = () => {
             <IonList>            {
               isPlacePredictionsLoading ? <p>Loading</p> :
                 <>{placePredictions.map((item) => (<IonItem onClick={()=>{
-                 (document.getElementById("loc") as HTMLInputElement).value = item.description
+                 (document.getElementById("loc") as HTMLInputElement).value =item.description
+                //  fetch("https://maps.googleapis.com/maps/api/place/details/json?place_id="+item.reference+"&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ")
+                 fetch("https://maps.googleapis.com/maps/api/geocode/json?place_id="+item.place_id+"&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ").then(x=>x.json()).then((x)=>{
+                    loc = [x.results[0].geometry.lat, x.results[0].geometry.lng]
+                 })
+                 console.log(item)
                 }}>{item.description}</IonItem>))}</>
             }</IonList>
           </IonItem>
@@ -95,6 +101,7 @@ const Tab3: React.FC = () => {
               tmp.push({
                 image: image,
                 rating: 100,
+                location: loc,
                 // @ts-ignore
                 title: document.getElementById("title").value, description: document.getElementById("des").value, price: document.getElementById("price").value
               })
