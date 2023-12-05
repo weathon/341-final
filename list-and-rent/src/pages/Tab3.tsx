@@ -9,7 +9,7 @@ const Tab3: React.FC = () => {
   const catOptions = ["Books", "Sport Gears", "Electronics", "Others"];
   const [image, setImage] = useState("");
   const [display, setDisplay] = useState(false)
-  let loc = [];
+  const [loc, setLoc] = useState([])
   const {
     placesService,
     placePredictions,
@@ -75,7 +75,8 @@ const Tab3: React.FC = () => {
                  (document.getElementById("loc") as HTMLInputElement).value =item.description
                 //  fetch("https://maps.googleapis.com/maps/api/place/details/json?place_id="+item.reference+"&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ")
                  fetch("https://maps.googleapis.com/maps/api/geocode/json?place_id="+item.place_id+"&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ").then(x=>x.json()).then((x)=>{
-                    loc = [x.results[0].geometry.lat, x.results[0].geometry.lng]
+                    setLoc([x.results[0].geometry.location.lat, x.results[0].geometry.location.lng]);
+                    console.log(loc)
                  })
                  console.log(item)
                 }}>{item.description}</IonItem>))}</>
@@ -98,6 +99,7 @@ const Tab3: React.FC = () => {
           <IonButton className="m-3" expand='block' onClick={() => {
             setTimeout(() => {
               let tmp = JSON.parse(localStorage.getItem("newItems")) || []
+              console.log(loc)
               tmp.push({
                 image: image,
                 rating: 100,

@@ -172,7 +172,7 @@ const Detail = (props: detail) => {
                 </IonItem>
                 <IonItem><b>Price:</b> ${props.info.price} <span className="pl-5 pr-5"></span></IonItem>
                 {/* Rating: {props.info.rating}%</IonItem> */}
-                <IonItem><img className="rounded-full w-20 p-3" src={"/cat.png"}></img><IonText><h4>Marshall Guo</h4><IonProgressBar value={props.info.rating+"%"} color="success"></IonProgressBar><p className="w-full"><IonIcon icon={thumbsUp}></IonIcon>{props.info.rating/100}</p></IonText></IonItem>
+                <IonItem><img className="rounded-full w-20 p-3" src={"/cat.png"}></img><IonText><h4>Marshall Guo</h4><IonProgressBar value={props.info.rating/100} color="success"></IonProgressBar><p className="w-full"><IonIcon icon={thumbsUp}></IonIcon>{props.info.rating}%</p></IonText></IonItem>
                 <span className="p-5"><b>Location: </b></span><br/><IonItem><img width="100%" src={"https://maps.googleapis.com/maps/api/staticmap?center=" + props.info.location[0] + "," + props.info.location[1] + "&markers=" + props.info.location[0] + "," + props.info.location[1] +  "&zoom=12&size=800x400&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ"}></img></IonItem>
                 <IonButton expand="block" onClick={()=>{setOpen(true)}}><IonIcon icon={chatbox}></IonIcon>Chat with owner</IonButton>
                 {/* 
