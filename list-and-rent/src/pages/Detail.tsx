@@ -145,6 +145,7 @@ const Detail = (props: detail) => {
                                 editableDateInputs={true}
                                 direction="horizontal"
                             />
+                            <IonText>Click the starting date then the end date</IonText>
                             <IonButton expand="block" onClick={()=>{
                                 // @ts-ignore
                                 props.info.state = state
