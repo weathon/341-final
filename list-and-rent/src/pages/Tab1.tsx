@@ -194,6 +194,7 @@ const Tab1: React.FC = () => {
     let new_items = JSON.parse(localStorage.getItem("newItems") || "[]");
     for (var i = 0; i < new_items.length; i++) {
       new_items[i].id = 1;
+      new_items[i].dis = 0;
     }
     trending_ = trending_.concat(new_items)
 
