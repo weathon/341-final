@@ -166,7 +166,7 @@ const Detail = (props: detail) => {
                     <p>Detail: <br/>{detail.description}</p>
                 </IonItem>
                 <IonItem>
-                    Available Date: <br/>May 20, 2023 - {endDate} <IonButton slot="end" onClick={() => {
+                    Available Dates: <br/>May 20, 2023 - {endDate} <IonButton slot="end" onClick={() => {
                         setCalenderOpen(true);
                     }}>Book</IonButton>
                 </IonItem>
