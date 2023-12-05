@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 import { airplane, backspace, chevronBack, paperPlane } from 'ionicons/icons';
 
 const Tab5 = ()=>{
-  const his = JSON.parse(localStorage.getItem("history"))
+ try{
+  const his = JSON.parse(localStorage.getItem("history")) 
   const start = new Date(his.state[0].startDate).toLocaleDateString();
   const end = new Date(his.state[0].endDate).toLocaleDateString();
   return (
@@ -15,11 +16,25 @@ const Tab5 = ()=>{
         <IonToolbar><IonTitle>History</IonTitle></IonToolbar>
       </IonHeader>
       <IonContent>
-          <IonItem>{his && (<img style={{width:"30%"}} className="m-3 rounded-lg" src={his.image}></img>)}
-          <IonText><h3>{his.title}</h3><br/><p>{start} - {end}</p><br/>CA${his.price}</IonText></IonItem>
+          {
+            his ||
+            <IonItem>{his && (<img style={{width:"30%"}} className="m-3 rounded-lg" src={his.image}></img>)}
+            <IonText><h3>{his.title}</h3><br/><p>{start} - {end}</p><br/>CA${his.price}</IonText></IonItem>
+          }
       </IonContent>
     </IonPage>
   )
+ }
+ catch{
+  return (
+    <IonPage>
+      <IonHeader>
+        <IonToolbar><IonTitle>History</IonTitle></IonToolbar>
+      </IonHeader>
+      <IonContent>
+      </IonContent>
+    </IonPage>)
+ }
 }
 
 export default Tab5;

@@ -8,7 +8,7 @@ import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
 
-interface detail { setDetileOpen: Function, itemId: Number, info: Object };
+interface detail { setDetileOpen: Function, itemId: Number, info: Object};
 
 const Detail = (props: detail) => {
     let endDate = "Dec 30, 2023"
@@ -161,19 +161,19 @@ const Detail = (props: detail) => {
                     </IonPage>
                 </IonModal>
                 <img src={detail.image} className="p-5 rounded-3xl"></img>
-                <IonItem>Name: {detail.name}</IonItem>
+                <IonItem><b>Name:</b> {detail.name}</IonItem>
                 <IonItem>
-                    <p>Detail: <br/>{detail.description}</p>
+                    <p><b>Detail:</b> <br/>{detail.description}</p>
                 </IonItem>
                 <IonItem>
-                    Available Dates: <br/>May 20, 2023 - {endDate} <IonButton slot="end" onClick={() => {
+                    <b>Available Dates:</b> <br/>May 20, 2023 - {endDate} <IonButton slot="end" onClick={() => {
                         setCalenderOpen(true);
                     }}>Book</IonButton>
                 </IonItem>
-                <IonItem>Price: ${props.info.price} <span className="pl-5 pr-5"></span></IonItem>
+                <IonItem><b>Price:</b> ${props.info.price} <span className="pl-5 pr-5"></span></IonItem>
                 {/* Rating: {props.info.rating}%</IonItem> */}
-                <IonItem><img className="rounded-full w-20 p-3" src={"/cat.png"}></img><IonText><h4>Marshall Guo</h4><IonProgressBar value={props.info.rating/100} color="success"></IonProgressBar><p className="w-full"><IonIcon icon={thumbsUp}></IonIcon>{props.info.rating/100}</p></IonText></IonItem>
-                <span className="p-5">Location:</span><br/><IonItem><img width="100%" src={"https://maps.googleapis.com/maps/api/staticmap?center=" + detail.location[0] + "," + detail.location[1] + "&markers=" + detail.location[0] + "," + detail.location[1] + "&zoom=12&size=800x400&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ"}></img></IonItem>
+                <IonItem><img className="rounded-full w-20 p-3" src={"/cat.png"}></img><IonText><h4>Marshall Guo</h4><IonProgressBar value={props.info.rating+"%"} color="success"></IonProgressBar><p className="w-full"><IonIcon icon={thumbsUp}></IonIcon>{props.info.rating/100}</p></IonText></IonItem>
+                <span className="p-5"><b>Location: </b></span><br/><IonItem><img width="100%" src={"https://maps.googleapis.com/maps/api/staticmap?center=" + props.info.location[0] + "," + props.info.location[1] + "&markers=" + detail.location[0] + "," + detail.location[1] + "&zoom=12&size=800x400&key=AIzaSyAbagbe5fdVhIHTe_RVFkRoyWDeiw-T1DQ"}></img></IonItem>
                 <IonButton expand="block" onClick={()=>{setOpen(true)}}><IonIcon icon={chatbox}></IonIcon>Chat with owner</IonButton>
                 {/* 
                 <IonFab slot="fixed" vertical="bottom" horizontal="end">
