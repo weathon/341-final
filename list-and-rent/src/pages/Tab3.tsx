@@ -91,6 +91,7 @@ const Tab3: React.FC = () => {
               }
             </IonSelect>
           </IonItem>
+          <IonItem>Select dates you want to rent out your item:</IonItem>
           <IonItem><IonLabel>Staring Date</IonLabel><input type="date"/></IonItem>
           <IonItem><IonLabel>End Date</IonLabel><input type="date"/></IonItem>
           <IonItem>
