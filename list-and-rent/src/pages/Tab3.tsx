@@ -105,7 +105,7 @@ const Tab3: React.FC = () => {
                 image: image,
                 rating: 100,
                 location: loc,
-                satrtDate: document.getElementById("sd").value,
+                startDate: document.getElementById("sd").value,
                 endDate: document.getElementById("ed").value,
                 // @ts-ignore
                 title: document.getElementById("title").value, description: document.getElementById("des").value, price: document.getElementById("price").value

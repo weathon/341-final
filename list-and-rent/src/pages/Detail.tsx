@@ -140,7 +140,7 @@ const Detail = (props: detail) => {
                                 moveRangeOnFirstSelection={false}
                                 months={2}
                                 ranges={state}
-                                minDate={(new Date())}
+                                minDate={(new Date(props.info.startDate))}
                                 maxDate={(new Date(props.info.endDate))}
                                 editableDateInputs={true}
                                 direction="horizontal"
