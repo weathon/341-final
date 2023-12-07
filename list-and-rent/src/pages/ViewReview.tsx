@@ -19,10 +19,11 @@ const ViewReview = () => {
     // }
     useEffect(() => {
         console.log(reviews);
-        if (localStorage.getItem("review"))
-{
-    reviews.push(JSON.parse(localStorage.getItem("review")))
-[...reviews]}    }
+        if (localStorage.getItem("review")) {
+            reviews.push(JSON.parse(localStorage.getItem("review")))
+            setReviews([...reviews])
+        }
+    }
         , [])
     return (
         <><div className="p-4">
