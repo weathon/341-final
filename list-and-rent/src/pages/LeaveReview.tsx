@@ -11,8 +11,10 @@ const LeaveReview = (props: p) => {
     useEffect(
         () => {
             if (localStorage.getItem("review"))
-                text.current.value = JSON.parse(localStorage.getItem("review"))[0]
-                stars = JSON.parse(localStorage.getItem("review"))[1]
+{
+    text.current.value = JSON.parse(localStorage.getItem("review"))[0]
+    stars = JSON.parse(localStorage.getItem("review"))[1]
+}
             setStars(stars)
         }, []
     )

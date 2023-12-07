@@ -1,24 +1,28 @@
 import { IonIcon, IonText } from "@ionic/react";
 import { star, starOutline } from "ionicons/icons";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const ViewReview = () => {
-    let reviews = [
+    let [reviews, setReviews] = useState([
 
         ["Great Value, would recommond!", 5],
 
         ["Fine, owner is nice although item is old.", 4],
 
         ["Owner did not show up", 1]
-    ]
-    if (localStorage.getItem("review"))
-    reviews.push(JSON.parse(localStorage.getItem("review")))
-    // useEffect(() => {
-    //     console.log(reviews);
-    //     if (localStorage.getItem("review"))
-    //         reviews.push(JSON.parse(localStorage.getItem("review")))
+    ])
+    // if (localStorage.getItem("review"))
+    // {
+    //     // console.log(localStorage.getItem("review"))
+    //     reviews.push(JSON.parse(localStorage.getItem("review")))
+    //     setReviews([...reviews])
     // }
-    //     , [])
+    useEffect(() => {
+        console.log(reviews);
+        if (localStorage.getItem("review"))
+            reviews.push(JSON.parse(localStorage.getItem("review")))
+    }
+        , [])
     return (
         <><div className="p-4">
             <h3>Review</h3>
