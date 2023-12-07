@@ -101,7 +101,7 @@ const Tab1: React.FC = () => {
 
   let trending_ = [
     {
-      "image": "image (7).png",
+      "image": "image (7).png","user":"Tom",
       "title": "City Explorer Bicycle",
       "description": "A versatile, lightweight bicycle perfect for urban adventures. Features a comfortable seat, smooth gears, and a durable frame.",
       "price": 15,
@@ -110,7 +110,7 @@ const Tab1: React.FC = () => {
       "username": "UrbanRider"
     },
     {
-      "image": "image (8).png",
+      "image": "image (8).png","user":"Kate",
       "title": "Portable Projector",
       "description": "Compact HD projector, ideal for movie nights or presentations. Easy to set up, compatible with various devices, and comes with a carry case.",
       "price": 20,
@@ -119,7 +119,7 @@ const Tab1: React.FC = () => {
       "username": "TechEnthusiast"
     },
     {
-      "image": "image (6).png",
+      "image": "image (6).png","user":"Lucy",
       "title": "Professional Camera Kit",
       "description": "A high-quality DSLR camera with multiple lenses, perfect for photography enthusiasts. Includes a tripod, carry bag, and memory cards.",
       "price": 40,
@@ -128,7 +128,7 @@ const Tab1: React.FC = () => {
       "username": "Shutterbug"
     },
     {
-      "image": "image (5).png",
+      "image": "image (5).png","user":"John",
       "title": "Beach Day Package",
       "description": "Everything you need for a perfect day at the beach: includes a sun umbrella, two chairs, a cooler, and beach toys.",
       "price": 25,
@@ -137,7 +137,7 @@ const Tab1: React.FC = () => {
       "username": "SandyToes"
     },
     {
-      "image": "image (4).png",
+      "image": "image (4).png","user":"Indy",
       "title": "Camping Adventure Gear",
       "description": "A complete camping set with a tent, sleeping bags, cooking equipment, and a portable stove. Perfect for outdoor enthusiasts.",
       "price": 35,
@@ -149,7 +149,7 @@ const Tab1: React.FC = () => {
 
     {
       "id": 1,
-      "image": "/hplc.png",
+      "image": "/hplc.png","user":"Mindy",
       "title": "Advanced HPLC-ESI-MS",
       "description": "High-Performance Liquid Chromatography with Electrospray Ionization Mass Spectrometry equipment, ideal for detailed chemical analysis. Available for short-term lease for research purposes.",
       "from": "Dr. Rachel K.",
@@ -158,7 +158,7 @@ const Tab1: React.FC = () => {
       "dis": 10
     },
     {
-      "image": "image (3).png",
+      "image": "image (3).png","user":"Pop",
 
       "title": "Universal Smartphone Charger",
       "description": "A fast-charging and versatile smartphone charger compatible with multiple devices. Features overcharge protection and a compact design.",
@@ -168,7 +168,7 @@ const Tab1: React.FC = () => {
       "username": "ChargeMaster"
     },
     {
-      "image": "image (2).png",
+      "image": "image (2).png","user":"Marshall",
 
       "title": "Mystery Thriller Novel",
       "description": "A gripping and suspenseful mystery novel by a bestselling author. Perfect for fans of thrilling stories and complex characters.",
@@ -179,7 +179,7 @@ const Tab1: React.FC = () => {
       "username": "Bookworm"
     },
     {
-      "image": "image (1).png",
+      "image": "image (1).png","user":"Wayne",
 
       "title": "Insulated Winter Coat",
       "description": "A stylish and warm winter coat, suitable for extreme cold. Features waterproof material, a detachable hood, and inner thermal lining.",
